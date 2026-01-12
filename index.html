@@ -12,13 +12,15 @@
 <meta name="theme-color" content="#f6f4f1">
 
 <style>
-body {
-  font-family: -apple-system, BlinkMacSystemFont, Arial, sans-serif;
-  background: #f6f4f1;
-  text-align: center;
-  padding: 30px;
+/* Reset */
+body, html {
   margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  font-family: -apple-system, BlinkMacSystemFont, Arial, sans-serif;
   overflow-x: hidden;
+  background: #f6f4f1;
 }
 
 /* Screens */
@@ -84,14 +86,16 @@ button:active {
   inset: 0;
   overflow: hidden;
   pointer-events: none;
+  z-index: 1;
 }
 
 .heart {
   position: absolute;
   bottom: -20px;
-  font-size: 18px;
-  opacity: 0.25;
+  font-size: 30px; /* bigger hearts */
+  opacity: 0.5;
   animation: floatUp 10s linear infinite;
+  color: #9A0016; /* darker shade */
 }
 
 .heart:nth-child(1) { left: 10%; animation-delay: 0s; }
@@ -101,24 +105,24 @@ button:active {
 .heart:nth-child(5) { left: 85%; animation-delay: 8s; }
 
 @keyframes floatUp {
-  0% { transform: translateY(0); opacity: 0; }
-  20% { opacity: 0.25; }
-  100% { transform: translateY(-120vh); opacity: 0; }
+  0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+  20% { opacity: 0.5; }
+  100% { transform: translateY(-120vh) rotate(360deg); opacity: 0; }
 }
 
 /* Final Screen */
 #finalScreen {
   min-height: 80vh;
   width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   background-color: #eae6df;
   background-image: url("./background.jpeg");
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-<img src="background.jpeg" style="display:none" onerror="this.style.display='none'">
+  position: relative;
 }
 
 #finalText {
@@ -128,11 +132,26 @@ button:active {
   border-radius: 14px;
   max-width: 90%;
   animation: fadeInSlow 2s ease forwards;
+  text-align: center;
 }
 
 @keyframes fadeInSlow {
   from { opacity: 0; }
   to { opacity: 1; }
+}
+
+/* Responsive tweaks for iPhone 17 */
+@media (max-width: 430px) {
+  button {
+    font-size: 15px;
+    padding: 10px 16px;
+  }
+  .heart {
+    font-size: 28px;
+  }
+  #finalText {
+    font-size: 16px;
+  }
 }
 </style>
 </head>
@@ -142,9 +161,9 @@ button:active {
 <!-- Screen 1 -->
 <div id="screen1" class="screen active">
   <div class="hearts">
-    <span class="heart">♡</span><span class="heart">♡</span>
-    <span class="heart">♡</span><span class="heart">♡</span>
-    <span class="heart">♡</span>
+    <span class="heart">❤️</span><span class="heart">❤️</span>
+    <span class="heart">❤️</span><span class="heart">❤️</span>
+    <span class="heart">❤️</span>
   </div>
 
   <p>Not everyone can unlock this.</p>
@@ -155,9 +174,9 @@ button:active {
 <!-- Screen 2 -->
 <div id="screen2" class="screen">
   <div class="hearts">
-    <span class="heart">♡</span><span class="heart">♡</span>
-    <span class="heart">♡</span><span class="heart">♡</span>
-    <span class="heart">♡</span>
+    <span class="heart">❤️</span><span class="heart">❤️</span>
+    <span class="heart">❤️</span><span class="heart">❤️</span>
+    <span class="heart">❤️</span>
   </div>
 
   <h3>🔒 Unlock</h3>
@@ -180,9 +199,9 @@ button:active {
 <!-- Screen 3 -->
 <div id="screen3" class="screen">
   <div class="hearts">
-    <span class="heart">♡</span><span class="heart">♡</span>
-    <span class="heart">♡</span><span class="heart">♡</span>
-    <span class="heart">♡</span>
+    <span class="heart">❤️</span><span class="heart">❤️</span>
+    <span class="heart">❤️</span><span class="heart">❤️</span>
+    <span class="heart">❤️</span>
   </div>
 
   <p>Tap the feelings in the order you feel today!</p>
@@ -199,11 +218,11 @@ button:active {
   <div id="finalScreen">
     <div id="finalText">
       <p><strong><i>
-      You could unlock this only because you’re mine!!</i></strong></p>
+      You could unlock this only because you’re mine!!</strong></p>
 
       <p style="margin-top:20px;">
-        Sharath ❤️<br>
-        <strong>I don’t need perfect days to choose you.</strong>
+       <strong>Sharath ❤️<br>
+        I don’t need perfect days to choose you.</i></strong>
       </p>
     </div>
   </div>
