@@ -108,16 +108,17 @@ button:active {
 
 /* Final Screen */
 #finalScreen {
-  min-height: 75vh;
+  min-height: 80vh;
+  width: 100%;
   background-color: #eae6df;
-  background-image: url("background.jpeg");
+  background-image: url("./background.jpeg");
   background-size: cover;
-  background-position: center;
+  background-position: center center;
   background-repeat: no-repeat;
-  border-radius: 18px;
   display: flex;
   align-items: center;
   justify-content: center;
+<img src="background.jpeg" style="display:none" onerror="this.style.display='none'">
 }
 
 #finalText {
