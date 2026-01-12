@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+<title>Unlock Me</title>
+
+<!-- iPhone app-like -->
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="theme-color" content="#f6f4f1">
+
+<style>
+body {
+  font-family: -apple-system, BlinkMacSystemFont, Arial, sans-serif;
+  background: #f6f4f1;
+  text-align: center;
+  padding: 30px;
+  margin: 0;
+  overflow-x: hidden;
+}
+
+/* Screens */
+.screen {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+  pointer-events: none;
+  position: relative;
+  min-height: 70vh;
+}
+
+.screen.active {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+/* Buttons */
+button {
+  padding: 12px 20px;
+  margin: 10px;
+  border-radius: 20px;
+  border: none;
+  background: #d8cfc4;
+  font-size: 16px;
+  transition: transform 0.15s ease, background 0.15s ease;
+}
+
+button:active {
+  transform: scale(0.96);
+}
+
+.option {
+  display: block;
+  margin: 8px auto;
+  width: 85%;
+}
+
+/* Pattern */
+.pattern button {
+  background: #e7e2dc;
+}
+
+.pattern button.clicked {
+  background: #cfc7bb;
+}
+
+/* Unlock pulse */
+.unlock {
+  animation: unlockPulse 0.8s ease;
+}
+
+@keyframes unlockPulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+/* FLOATING HEARTS */
+.hearts {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.heart {
+  position: absolute;
+  bottom: -20px;
+  font-size: 18px;
+  opacity: 0.25;
+  animation: floatUp 10s linear infinite;
+}
+
+.heart:nth-child(1) { left: 10%; animation-delay: 0s; }
+.heart:nth-child(2) { left: 30%; animation-delay: 2s; }
+.heart:nth-child(3) { left: 50%; animation-delay: 4s; }
+.heart:nth-child(4) { left: 70%; animation-delay: 6s; }
+.heart:nth-child(5) { left: 85%; animation-delay: 8s; }
+
+@keyframes floatUp {
+  0% { transform: translateY(0); opacity: 0; }
+  20% { opacity: 0.25; }
+  100% { transform: translateY(-120vh); opacity: 0; }
+}
+
+/* Final Screen */
+#finalScreen {
+  min-height: 75vh;
+  background-color: #eae6df;
+  background-image: url("background.jpeg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  border-radius: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#finalText {
+  background: rgba(255,255,255,0.88);
+  color: #2f2f2f;
+  padding: 22px;
+  border-radius: 14px;
+  max-width: 90%;
+  animation: fadeInSlow 2s ease forwards;
+}
+
+@keyframes fadeInSlow {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+</style>
+</head>
+
+<body>
+
+<!-- Screen 1 -->
+<div id="screen1" class="screen active">
+  <div class="hearts">
+    <span class="heart">♡</span><span class="heart">♡</span>
+    <span class="heart">♡</span><span class="heart">♡</span>
+    <span class="heart">♡</span>
+  </div>
+
+  <p>Not everyone can unlock this.</p>
+
+  <button onclick="startExperience()">Start</button>
+</div>
+
+<!-- Screen 2 -->
+<div id="screen2" class="screen">
+  <div class="hearts">
+    <span class="heart">♡</span><span class="heart">♡</span>
+    <span class="heart">♡</span><span class="heart">♡</span>
+    <span class="heart">♡</span>
+  </div>
+
+  <h3>🔒 Unlock</h3>
+
+  <p>Q1: The month we first spoke</p>
+  <button class="option" onclick="q1('Feb')">Feb</button>
+  <button class="option" onclick="q1('Dec')">Dec</button>
+  <button class="option" onclick="q1('Aug')">Aug</button>
+  <button class="option" onclick="q1('June')">June</button>
+
+  <div id="q2" style="display:none;">
+    <p>Q2: First temple we visited together</p>
+    <button class="option" onclick="q2('Kapaleeshwar')">Kapaleeshwar</button>
+    <button class="option" onclick="q2('Thiruporur')">Thiruporur</button>
+    <button class="option" onclick="q2('Murugan in Berlin')">Murugan in Berlin</button>
+    <button class="option" onclick="q2('Nithya kalyana Perumal')">Nithya kalyana Perumal</button>
+  </div>
+</div>
+
+<!-- Screen 3 -->
+<div id="screen3" class="screen">
+  <div class="hearts">
+    <span class="heart">♡</span><span class="heart">♡</span>
+    <span class="heart">♡</span><span class="heart">♡</span>
+    <span class="heart">♡</span>
+  </div>
+
+  <p>Tap the feelings in the order you feel today!</p>
+  <div class="pattern">
+    <button onclick="tap(event)">Peace</button>
+    <button onclick="tap(event)">Hurt</button>
+    <button onclick="tap(event)">Anger</button>
+    <button onclick="tap(event)">Care</button>
+  </div>
+</div>
+
+<!-- Screen 4 -->
+<div id="screen4" class="screen">
+  <div id="finalScreen">
+    <div id="finalText">
+      <p><strong><i>
+      You could unlock this only because you’re mine!!</i></strong></p>
+
+      <p style="margin-top:20px;">
+        Sharath ❤️<br>
+        <strong>I don’t need perfect days to choose you.</strong>
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- Audio -->
+<audio id="bell" src="bell.mp3" preload="auto"></audio>
+<audio id="music" src="song.mp3" preload="auto" loop></audio>
+
+<script>
+let taps = 0;
+
+function goTo(n) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById('screen' + n).classList.add('active');
+}
+
+function startExperience() {
+  const music = document.getElementById('music');
+  music.volume = 0.4;
+  music.play();
+  goTo(2);
+}
+
+function q1(ans) {
+  if (ans === 'Feb') {
+    document.getElementById('q2').style.display = 'block';
+  }
+}
+
+function q2(ans) {
+  if (ans === 'Kapaleeshwar') {
+    document.getElementById('screen2').classList.add('unlock');
+    document.getElementById('bell').play();
+    setTimeout(() => goTo(3), 900);
+  }
+}
+
+function tap(e) {
+  e.target.classList.add("clicked");
+  taps++;
+  if (taps === 4) {
+    setTimeout(() => goTo(4), 700);
+  }
+}
+</script>
+
+</body>
+</html>
