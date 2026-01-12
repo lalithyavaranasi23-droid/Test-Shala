@@ -3,7 +3,6 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-
 <title>Unlock Me</title>
 
 <!-- iPhone app-like -->
@@ -92,10 +91,10 @@ button:active {
 .heart {
   position: absolute;
   bottom: -20px;
-  font-size: 30px; /* bigger hearts */
+  font-size: 30px;
   opacity: 0.5;
   animation: floatUp 10s linear infinite;
-  color: #9A0016; /* darker shade */
+  color: #9A0016;
 }
 
 .heart:nth-child(1) { left: 10%; animation-delay: 0s; }
@@ -116,7 +115,8 @@ button:active {
   width: 100%;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;   /* left align */
+  padding-left: 24px;            /* spacing from left edge */
   background-color: #eae6df;
   background-image: url("./background.jpeg");
   background-size: cover;
@@ -126,15 +126,19 @@ button:active {
 }
 
 #finalText {
-  background: rgba(255,255,255,0.88);
-  color: #2f2f2f;
-  padding: 22px;
-  border-radius: 14px;
-  max-width: 90%;
+  text-align: left;
   animation: fadeInSlow 2s ease forwards;
-  text-align: center;
+  display: inline-block;
 }
 
+#finalText p span {
+  background: rgba(255,255,255,0.6); /* only behind text */
+  padding: 2px 6px;
+  border-radius: 3px;
+  display: inline;
+}
+
+/* Fade-in animation */
 @keyframes fadeInSlow {
   from { opacity: 0; }
   to { opacity: 1; }
@@ -204,12 +208,12 @@ button:active {
     <span class="heart">❤️</span>
   </div>
 
-  <p>Tap the feelings in the order you feel today!</p>
+  <p>Tap the top feelings of today!</p>
   <div class="pattern">
     <button onclick="tap(event)">Peace</button>
     <button onclick="tap(event)">Hurt</button>
     <button onclick="tap(event)">Anger</button>
-    <button onclick="tap(event)">Care</button>
+    <button onclick="tap(event)">Satisfying</button>
   </div>
 </div>
 
@@ -217,12 +221,10 @@ button:active {
 <div id="screen4" class="screen">
   <div id="finalScreen">
     <div id="finalText">
-      <p><strong><i>
-      You could unlock this only because you’re mine!!</strong></p>
-
-      <p style="margin-top:20px;">
-       <strong>Sharath ❤️<br>
-        I don’t need perfect days to choose you.</i></strong>
+      <p><span><strong><i> High Five 🙌 <br><br><br>
+       You could unlock this only because you’re mine!!</i></strong></span></p>
+      <p style="margin-top:40px;">
+        <span><strong><i>Sharath ❤️<br>I don’t need perfect days to choose you.</i></strong></span>
       </p>
     </div>
   </div>
@@ -261,10 +263,11 @@ function q2(ans) {
   }
 }
 
+// Mood screen: move to next after 2 taps
 function tap(e) {
   e.target.classList.add("clicked");
   taps++;
-  if (taps === 4) {
+  if (taps === 2) {   // <-- changed from 4 to 2
     setTimeout(() => goTo(4), 700);
   }
 }
